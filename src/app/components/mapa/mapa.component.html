@@ -1,1 +1,9 @@
-<p>mapa works!</p>
+
+<h1>mapa de google</h1>
+
+<agm-map [latitude]="lat" [longitude]="long" [zoom]="zoom">
+    <agm-marker-cluster>
+      <agm-marker *ngFor="let item of dataMarker"  [latitude]="item.lat" [longitude]="item.long">
+      </agm-marker><!-- multiple markers -->
+    </agm-marker-cluster>
+  </agm-map>
