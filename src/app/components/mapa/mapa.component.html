@@ -1,9 +1,18 @@
-
 <h1>mapa de google</h1>
+<ng-container *ngIf="statusMapa">
 
-<agm-map [latitude]="lat" [longitude]="long" [zoom]="zoom">
-    <agm-marker-cluster>
-      <agm-marker *ngFor="let item of dataMarker"  [latitude]="item.lat" [longitude]="item.long">
-      </agm-marker><!-- multiple markers -->
-    </agm-marker-cluster>
-  </agm-map>
+    <agm-map #gm [latitude]="lat" [longitude]="long" [zoom]="zoom">
+        <agm-marker-cluster>
+            <agm-marker *ngFor="let item of dataMarker" [latitude]="item.fields.lat" [longitude]="item.fields.long"
+                (markerClick)="openWindow(item.recordid)">
+
+                <agm-info-window [isOpen]="isInfoWindowOpen(item.recordid)" [latitude]="item.fields.lat" [longitude]="item.fields.long">
+                    <h2>{{ item.fields.nombre  }}</h2>
+                    <p>{{ item.fields.alcaldia }}</p>
+                    <p>{{ item.fields.region }}</p>
+                </agm-info-window>
+
+            </agm-marker><!-- multiple markers -->
+        </agm-marker-cluster>
+    </agm-map>
+</ng-container>

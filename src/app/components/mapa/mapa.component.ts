@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { marcadores } from 'src/app/models/mapa';
+import { marcadores, Marker, ResponseApi } from 'src/app/models/mapa';
+import { MapaService } from 'src/app/services/mapa.service';
 
 
 
@@ -10,29 +11,41 @@ import { marcadores } from 'src/app/models/mapa';
 })
 export class MapaComponent implements OnInit {
 
+  statusMapa: boolean = false;
   lat = 19.428408
   long = -99.137162;
   zoom = 13;
+  openedWindow: number = 0;
 
-  dataMarker: marcadores[] =
-    [
-      {
-       
-        lat: 19.426627,
-        long: -99.107121
-      },
-      {
-        lat: 19.410842,
-        long: -99.114416
-      }
-    ]
+  dataMarker: Marker[];
 
-
-  constructor() { }
+  constructor(private mapaService: MapaService) { }
 
   ngOnInit(): void {
+    this.getMarkers();
   }
 
+  openWindow(id) {
+    this.openedWindow = id;
+  }
+
+  isInfoWindowOpen(id) {
+    return this.openedWindow == id;
+  }
+
+  getMarkers() {
+    this.dataMarker = [];
+    this.mapaService.getMarkers().subscribe(
+      (result: ResponseApi) => {
+        
+        this.dataMarker = result.records;
+        console.log("marcadores: ", result);
+        this.statusMapa = true;
+      }, error => {
+        console.log("error al cargar los marcadores: ", error);
+      }
+    )
+  }
 
 
 }
