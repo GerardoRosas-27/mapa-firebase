@@ -1,8 +1,8 @@
-<ng-container *ngIf="loginUser">
-  <app-login></app-login>
-</ng-container>
 <ng-container *ngIf="!loginUser">
-  <app-mapa></app-mapa>
+  <app-login (logeado)="onLoger($event)"></app-login>
+</ng-container>
+<ng-container *ngIf="loginUser">
+  <app-mapa (logeado)="onLoger($event)"></app-mapa>
 </ng-container>
 
 

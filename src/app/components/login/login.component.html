@@ -1,1 +1,42 @@
-<p>login works!</p>
+<div class="row">
+    <div class="col-md-4 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                {{ registrar ? 'Registrar Usuario': 'Iniciar Sesión' }}
+            </div>
+            <div class="card-body">
+
+                <form>
+                    <div class="form-group">
+                        <input type="text" [(ngModel)]="user.correo" name="correo" class="form-control"
+                            placeholder="Correo" required autofocus>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" [(ngModel)]="user.contra" name="password" class="form-control"
+                            placeholder="Password" required>
+                    </div>
+                </form>
+                <div class="row justify-content-center">
+                    <button type="button" (click)="onEnviarDatos()" class="btn btn-primary btn-block">
+                        Enviar
+                    </button>
+
+                    <ng-container *ngIf="!registrar">
+                        <p>Si no tienes una cuenta registrate</p>
+                        <button type="button" (click)="registrar = true" class="btn btn-secundary btn-block">
+                            Registrar
+                        </button>
+                    </ng-container>
+                    <ng-container *ngIf="registrar">
+                        <p>Si ya tienes una cuenta inicia sesión</p>
+                        <button type="button" (click)="registrar = false" class="btn btn-primary btn-block">
+                            Iniciar Sesión
+                        </button>
+                    </ng-container>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

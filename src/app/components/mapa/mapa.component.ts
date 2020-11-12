@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { marcadores, Marker, ResponseApi } from 'src/app/models/mapa';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Marker, ResponseApi } from 'src/app/models/mapa';
+import { LoginService } from 'src/app/services/login.service';
 import { MapaService } from 'src/app/services/mapa.service';
-
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-mapa',
@@ -10,7 +10,7 @@ import { MapaService } from 'src/app/services/mapa.service';
   styleUrls: ['./mapa.component.css']
 })
 export class MapaComponent implements OnInit {
-
+  @Output() logeado: EventEmitter<boolean> = new EventEmitter<boolean>();
   statusMapa: boolean = false;
   lat = 19.428408
   long = -99.137162;
@@ -19,7 +19,7 @@ export class MapaComponent implements OnInit {
 
   dataMarker: Marker[];
 
-  constructor(private mapaService: MapaService) { }
+  constructor(private mapaService: MapaService, private loginService: LoginService) { }
 
   ngOnInit(): void {
     this.getMarkers();
@@ -45,6 +45,11 @@ export class MapaComponent implements OnInit {
         console.log("error al cargar los marcadores: ", error);
       }
     )
+  }
+  onCerrarSesion(){
+    console.log("secion cerrada");
+   this.loginService.signOut();
+    this.logeado.emit(false);
   }
 
 

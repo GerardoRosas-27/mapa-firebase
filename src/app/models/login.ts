@@ -1,2 +1,4 @@
-export class Login {
+export class User {
+    correo: string;
+    contra: string;
 }

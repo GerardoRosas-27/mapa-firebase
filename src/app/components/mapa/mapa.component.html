@@ -1,7 +1,14 @@
-<h1>mapa de google</h1>
-<ng-container *ngIf="statusMapa">
 
-    <agm-map #gm [latitude]="lat" [longitude]="long" [zoom]="zoom">
+<div class="conateiner">
+    <h1 class="text-center">Mapa de google</h1>
+    <div class="row justify-content-center py-5">
+        <button type="button" (click)="onCerrarSesion()" class="btn btn-primary">
+            Cerrar Sesión
+        </button>
+    </div>
+</div>
+<ng-container *ngIf="statusMapa">
+    <agm-map [latitude]="lat" [longitude]="long" [zoom]="zoom">
         <agm-marker-cluster>
             <agm-marker *ngFor="let item of dataMarker" [latitude]="item.fields.lat" [longitude]="item.fields.long"
                 (markerClick)="openWindow(item.recordid)">

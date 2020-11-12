@@ -7,6 +7,10 @@ import { MapaComponent } from './components/mapa/mapa.component';
 import { AgmCoreModule } from '@agm/core';
 import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from "@angular/fire/auth";
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -17,10 +21,14 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCQ_bzTPc9M9KhGEeiEkOSLMJqn_RFYyz8'    
    }),
-   AgmJsMarkerClustererModule
+   AgmJsMarkerClustererModule,
+   AngularFireModule.initializeApp(environment.firebase),
+   AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]
